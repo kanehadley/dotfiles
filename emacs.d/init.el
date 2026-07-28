@@ -158,6 +158,11 @@ o(use-package python-black
   )
 (hacky-keys)
 
+;; Local configuration to augment core configuration.
+(let ((local-config (expand-file-name "local-config.el" user-emacs-directory)))
+  ;; Check if the file exists before attempting to load it.
+  (when (file-exists-p local-config)
+    (load local-config)))
 
 ;; User-Defined init.el ends here
 (custom-set-variables
