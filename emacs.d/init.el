@@ -112,7 +112,7 @@
 	     ("C-<up>" . windmove-up)
 	     ("C-<down>" . windmove-down)))
 
-o(use-package python-black
+(use-package python-black
   :defer t
   :after python)
 
