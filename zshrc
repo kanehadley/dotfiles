@@ -32,3 +32,9 @@ stty lnext undef # Clears ^V, doesn't block Emacs scroll down page command.
 
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
 fpath=(~/.zsh $fpath)
+
+# Local configuration.
+# Place anything specific to this machine here.
+if [ -f ~/.zshrc_local ]; then
+   . ~/.zshrc_local;
+fi
