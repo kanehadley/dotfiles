@@ -25,10 +25,16 @@ compdef _bb_tasks bb
 
 alias gemacs='open /Applications/Emacs.app'
 
-stty discard undef  # Clears ^O
-stty dsusp undef  # Clears ^Y
-stty stop undef  # Clears ^S
-stty lnext undef # Clears ^V
+stty discard undef  # Clears ^O, doesn't block remapped Tmux prefix key.
+stty dsusp undef  # Clears ^Y, doesn't block Emacs yank command.
+stty stop undef  # Clears ^S, doesn't block Emacs incremental search command.
+stty lnext undef # Clears ^V, doesn't block Emacs scroll down page command.
 
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
 fpath=(~/.zsh $fpath)
+
+# Local configuration.
+# Place anything specific to this machine here.
+if [ -f ~/.zshrc_local ]; then
+   . ~/.zshrc_local;
+fi
