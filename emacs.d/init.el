@@ -158,7 +158,7 @@
   (bind-key "C-<up>" 'windmove-up)
   (bind-key "C-<down>" 'windmove-down)
   (bind-key "C--" 'undo)
-  (bind-key "C-M--" 'undo-redo)
+  (bind-key "M-_" 'undo-redo)
   )
 (hacky-keys)
 
