@@ -101,7 +101,11 @@
   :config
   (bind-keys :map lsp-mode-map
 	     ("M-?" . lsp-find-references))
-  )
+  :custom
+  (lsp-pylsp-plugins-ruff-enabled t)
+  (lsp-pylsp-plugins-pyflakes-enabled nil)
+  (lsp-pylsp-plugins-mccabe-enabled nil)
+  (lsp-pylsp-plugins-pycodestyle-enabled nil))
 
 (use-package python
   :defer t
@@ -154,7 +158,7 @@
   (bind-key "C-<up>" 'windmove-up)
   (bind-key "C-<down>" 'windmove-down)
   (bind-key "C--" 'undo)
-  (bind-key "C-M--" 'undo-redo)
+  (bind-key "M-_" 'undo-redo)
   )
 (hacky-keys)
 
