@@ -66,6 +66,7 @@
 (setq tab-always-indent 'complete)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
+(add-to-list 'interpreter-mode-alist '("bb" . clojure-mode))
 (setq major-mode-remap-alist
       '((python-mode . python-ts-mode)))
 (global-company-mode) ;; Enables autocompletion.
@@ -85,6 +86,13 @@
    '((python "https://github.com/tree-sitter/tree-sitter-python"))))
 ;; After initial installation run:
 ;;     M-x treesit-install-language-grammar RET python RET y https://github.com/tree-sitter/tree-sitter-python RET default branch RET "src" RET auto-detect RET auto-detect RET ~/.emacs.d/tree-sitter RET
+
+(use-package clojure-mode
+  :ensure t
+  :mode ("bb\\.edn\\'" . clojure-mode))
+
+(use-package eglot
+  :ensure t)
 
 (use-package cider
   :defer t
@@ -175,9 +183,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(cider company eat exec-path-from-shell lsp-mode magit nodejs-repl
-           paredit python-black rainbow-delimiters ruff-format
-           ts-comint typescript-mode)))
+   '(cider clojure-mode company eat exec-path-from-shell lsp-mode magit
+           nodejs-repl paredit python-black rainbow-delimiters
+           ruff-format ts-comint typescript-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
