@@ -22,12 +22,12 @@ brew install \
 mkdir src;
 
 cd src;
-git clone --depth 1 --no-single-branch https://git.savannah.gnu.org/git/emacs.git;
+git clone --depth 1 --branch emacs-31 https://git.savannah.gnu.org/git/emacs.git;
 cd emacs;
 
 # Create separate build location to not pollute the repository.
-git worktree add emacs-31 ../emacs-31;
-cd ../emacs-31;
+# git worktree add ../emacs-31 emacs-31;
+# cd ../emacs-31;
 
 # Build.
 CC="gcc-15" ./autogen.sh;
