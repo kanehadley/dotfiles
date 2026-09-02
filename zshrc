@@ -88,8 +88,16 @@ activate-nvm () {
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
 
-autoload -Uz compinit
-compinit
+
+#Load the Zsh color module
+autoload -U colors && colors;
+
+# Customize prompt colors.
+# %n = username, %m = hostname, %~ = current directory (with ~ for home)
+PS1="%{$fg[green]%}%n@%m%{$fg[white]%}:%{$fg[blue]%}%~%{$fg[white]%}$ ";
+
+# Iniitalize the Zsh completion system.
+autoload -Uz compinit && compinit;
 
 _bb_tasks() {
     local matches=(`bb tasks |tail -n +3 |cut -f1 -d ' '`)
