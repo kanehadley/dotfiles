@@ -122,3 +122,4 @@ fpath=(~/.zsh $fpath)
 if [ -f ~/.zshrc_local ]; then
    . ~/.zshrc_local;
 fi
+
