@@ -4,15 +4,15 @@ build:
 	sh build.sh
 
 test:
-	cd 
+	src/emacs/src/emacs --version
 
 install:
-	cd src/emacs-31; \
+	cd src/emacs; \
 	make install; \
-	mv src/emacs-31/nextstep/Emacs.app /Applications/;
+	mv src/emacs/nextstep/Emacs.app /Applications/;
 
 clean:
-	cd src/emacs-31; \
+	cd src/emacs; \
 	make clean;
 
 
