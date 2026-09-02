@@ -4,25 +4,38 @@
 
 # https://mgmarlow.com/words/2022-09-08-building-emacs-mac-os/
 
-# Install dependencies.
-brew install \
-     pkg-config \
-     automake \
-     texinfo \
-     jpeg \
-     giflib \
-     libtiff \
-     jansson \
-     libpng \
-     librsvg \
-     gnutls \
-     libgccjit \
-     tree-sitter;
+os=$(uname -s);
 
-mkdir src;
+case "$os" in
+    Darwin*)
+        echo "Installing OSX dependencies.";
+        brew install \
+             pkg-config \
+             automake \
+             texinfo \
+             jpeg \
+             giflib \
+             libtiff \
+             jansson \
+             libpng \
+             librsvg \
+             gnutls \
+             libgccjit \
+             tree-sitter;
+        ;;
+    Linux*)
+        echo "Installing Ubuntu dependencies.";
+        sudo sed -i 's/^Types: deb$/Types: deb deb-src/' /etc/apt/sources.list.d/ubuntu.sources;
+        sudo apt update;
+        sudo apt build-dep -y emacs;
+        sudo apt install libtree-sitter-dev;
+        ;;
+esac
 
-cd src;
+mkdir -p src && cd src;
+
 git clone --depth 1 --branch emacs-31 https://git.savannah.gnu.org/git/emacs.git;
+
 cd emacs;
 
 # Create separate build location to not pollute the repository.
@@ -32,8 +45,20 @@ cd emacs;
 # Build.
 CC="gcc-15" ./autogen.sh;
 
+case "$os" in
+    Darwin*)
+        echo "Adding OSX flags".
+        EXTRA_FLAGS="--with-ns --with-xwidgets";
+        ;;
+    Linux*)
+        echo "Adding Ubuntu flags".
+        EXTRA_FLAGS="";
+        ;;
+esac
+
 CFLAGS='-O2 -march=native' \
-      ./configure --disable-acl \
+      ./configure \
+      --disable-acl \
 	  --disable-silent-rules \
 	  --with-gnutls \
 	  --without-x \
@@ -43,9 +68,8 @@ CFLAGS='-O2 -march=native' \
 	  --without-pop \
 	  --without-mailutils \
 	  --with-tree-sitter \
-	  --with-ns \
 	  --with-native-compilation=aot \
-	  --with-xwidgets \
-	  --without-compress-install;
+	  --without-compress-install \
+      $EXTRA_FLAGS;
 
 make -j8 bootstrap;
