@@ -9,10 +9,16 @@ test:
 install:
 	cd src/emacs; \
 	make install; \
-	mv src/emacs/nextstep/Emacs.app /Applications/;
+	mv nextstep/Emacs.app /Applications/;
 
 clean:
 	cd src/emacs; \
 	make clean;
 
+recreate:
+	cd src/emacs; \
+	make clean; \
+	make bootstrap
 
+launch-ui:
+	CC="gcc-15" /Applications/Emacs.app/Contents/MacOS/Emacs
